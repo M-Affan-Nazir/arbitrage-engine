@@ -2,11 +2,8 @@
 #include <iostream>
 #include <curl/curl.h>
 #include "json.hpp"
-
 using namespace std;
 using json = nlohmann::json;
-
-string api = "https://jsonplaceholder.typicode.com/posts";
 
 size_t write(void* content, size_t size, size_t nmemb, void* userType){ //size_t = size of an object
     size_t totalSize = size * nmemb;
@@ -14,13 +11,14 @@ size_t write(void* content, size_t size, size_t nmemb, void* userType){ //size_t
     return totalSize;
 }
 
-int main() {
-
+int FetchJsonData(json &dataRef, string api){
+    
     CURL* curl;     //pointer to curl session
     CURLcode res;
     string dataRecieved;
 
     curl = curl_easy_init();    //initializes curl session
+    
     if(curl){
         curl_easy_setopt(curl, CURLOPT_URL, api.c_str());   //Set URL for GET request. '.c_str()' returns pointer to the string.
                                                             // We need to provide C-style string representation, 'string' itself is a higher level definition
@@ -30,18 +28,20 @@ int main() {
         res = curl_easy_perform(curl);  //perform the request. 'res' contains return code
 
         if(res != CURLE_OK){
-            cout << "CURL Failed - " << curl_easy_strerror(res) << endl;
+            cout << "API Fetch Failed - Reason: " << curl_easy_strerror(res) << endl;
+            return 0;
         }
         else{
             try{
-                json jsonData = json::parse(dataRecieved);
-                cout << jsonData[0]["body"] << endl;
+                dataRef = json::parse(dataRecieved);
             }
-            catch (json::parse_error& e){
-                std::cout << "JSON Parse Error - " << e.what() << endl;
+            catch (json::parse_error &e){
+                std::cout << "JSON Parse Error - Reason: " << e.what() << endl;
+                return 0;
             }
         }
         curl_easy_cleanup(curl); //cleanup
     }
-    return 0;
+    
+    return 1;
 }

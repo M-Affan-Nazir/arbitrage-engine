@@ -1,7 +1,10 @@
 #include <string>
 #include <iostream>
 #include <curl/curl.h>
+#include "json.hpp"
+
 using namespace std;
+using json = nlohmann::json;
 
 string api = "https://jsonplaceholder.typicode.com/posts";
 
@@ -19,8 +22,8 @@ int main() {
 
     curl = curl_easy_init();    //initializes curl session
     if(curl){
-        curl_easy_setopt(curl, CURLOPT_URL, api.c_str());   //Set URL for GET request. '.c_str()' returns pointer to the string. We can not use 'api', since it is of higher definition type 'string'.
-                                                            // We need to provide C-style string representation
+        curl_easy_setopt(curl, CURLOPT_URL, api.c_str());   //Set URL for GET request. '.c_str()' returns pointer to the string.
+                                                            // We need to provide C-style string representation, 'string' itself is a higher level definition
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write); //Set Write function
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &dataRecieved); //save data recieved into 'dataRecieved' variable
 
@@ -30,8 +33,13 @@ int main() {
             cout << "CURL Failed - " << curl_easy_strerror(res) << endl;
         }
         else{
-            cout << "Data: " << endl;
-            cout << dataRecieved << endl;
+            try{
+                json jsonData = json::parse(dataRecieved);
+                cout << jsonData[0]["body"] << endl;
+            }
+            catch (json::parse_error& e){
+                std::cout << "JSON Parse Error - " << e.what() << endl;
+            }
         }
         curl_easy_cleanup(curl); //cleanup
     }

@@ -46,3 +46,15 @@ float Graph::get_edge_using_key(string u, string v){
     }
     return this->matrix[index_u][index_v];
 }
+
+
+void Graph::print_matrix(){
+    cout << "---------------" << endl;
+    for(int i = 0; i<this->matrix.size();i++){
+        for(int j = 0; j<this->matrix.size();j++){
+            cout << this->matrix[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << "---------------" << endl;
+}

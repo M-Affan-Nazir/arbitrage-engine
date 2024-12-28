@@ -47,6 +47,8 @@ public:
     vector<string> getGbpKey();
     vector<string> getChfKey();
 
+    vector<string> get_unique_keys();
+
     vector<float> getUsdEdge();
     vector<float> getEurEdge();
     vector<float> getJpyEdge();

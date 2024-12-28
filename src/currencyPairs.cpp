@@ -4,6 +4,7 @@
 #include <string>
 using namespace std;
 #include "currencyPairs.hpp"
+#include <set>
 
 
 
@@ -95,4 +96,20 @@ vector<float> CurrencyPairs::getGbpEdge() {
 
 vector<float> CurrencyPairs::getChfEdge() {
     return chfRates;
+}
+
+vector<string> CurrencyPairs::get_unique_keys(){
+
+    vector<string> combined;
+    combined.insert(combined.end(), usdDirectExchange.begin(), usdDirectExchange.end());
+    combined.insert(combined.end(), eurDirectExchange.begin(), eurDirectExchange.end());
+    combined.insert(combined.end(), jpyDirectExchange.begin(), jpyDirectExchange.end());
+    combined.insert(combined.end(), gbpDirectExchange.begin(), gbpDirectExchange.end());
+    combined.insert(combined.end(), chfDirectExchange.begin(), chfDirectExchange.end());
+
+    //unique_keys_set/vector are variable names. (.begin(),.end()) is to populate the uniques_keys_set and unique_keys_vector
+    set<string> unique_keys_set (combined.begin(), combined.end());
+    vector<string> unique_keys_vector (unique_keys_set.begin(), unique_keys_set.end()); //.begin() = iterator pointing to first element - .end() = iterator pointing to last element.
+
+    return unique_keys_vector;
 }

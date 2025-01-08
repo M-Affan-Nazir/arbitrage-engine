@@ -44,16 +44,7 @@ void Graph::print_matrix(){
 }
 
 pair<int,int> Graph::get_indices_from_keys(string u, string v){
-    int index_u, index_v;
-    for(int i=0;i<this->keys.size();i++){
-        if(this->keys[i] == u){
-            index_u = i;
-        }
-        if(this->keys[i] == v){
-            index_v = i;
-        }
-    }
-    return make_pair(index_u, index_v);
+    return make_pair(this->keyToIndexMap[u], this->keyToIndexMap[v]);
 }
 
 void Graph::create_hash_map(){

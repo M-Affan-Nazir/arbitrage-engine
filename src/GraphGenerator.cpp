@@ -10,7 +10,7 @@ Graph::Graph(int n){
 
 void Graph::set_key(vector<string> keys){
     this->keys = keys;
-    this->create_hash_map();
+    this->create_hash_maps();
 }
 
 void Graph::add_edge(int u, int v, float weight){
@@ -47,9 +47,10 @@ pair<int,int> Graph::get_indices_from_keys(string u, string v){
     return make_pair(this->keyToIndexMap[u], this->keyToIndexMap[v]);
 }
 
-void Graph::create_hash_map(){
+void Graph::create_hash_maps(){
     for(int i=0; i<this->keys.size(); i++){
         this->keyToIndexMap[keys[i]] = i;
+        this->indexToKeyMap[i] = keys[i];
     }
 }
 

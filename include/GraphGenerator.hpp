@@ -10,8 +10,9 @@ class Graph{
         vector<vector<float>> matrix;
         vector<string> keys;
         unordered_map<string, int> keyToIndexMap;
+        unordered_map<int, string> indexToKeyMap;
         pair<int,int> get_indices_from_keys(string u, string v);
-        void create_hash_map();
+        void create_hash_maps();
         int get_index_from_key(string u);
 
     public:

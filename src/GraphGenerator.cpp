@@ -61,3 +61,24 @@ int Graph::get_index_from_key(string u){
 string Graph::get_key_from_index(int u){
     return this->indexToKeyMap[u];
 }
+
+vector<string> Graph::get_neighbours(int u){
+    vector<string> neighbours;
+    for(int i=0; i<this->keys.size(); i++){
+        if(this->matrix[u][i] != -1){
+            neighbours.push_back(this->get_key_from_index(i));
+        }
+    }
+    return neighbours;
+}
+
+vector<string> Graph::get_neighbours(string u){
+    vector<string> neighbours;
+    int index = this->get_index_from_key(u);
+    for(int i=0; i<this->keys.size(); i++){
+        if(this->matrix[index][i] != -1){
+            neighbours.push_back(this->get_key_from_index(i));
+        }
+    }
+    return neighbours;
+}

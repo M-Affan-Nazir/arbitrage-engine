@@ -15,6 +15,8 @@ class Graph{
         void create_hash_maps();
         int get_index_from_key(string u);
         string get_key_from_index(int u);
+        vector<string> get_neighbours(int u);
+        vector<string> get_neighbours(string u);
 
     public:
         Graph(int n); //Constructor
@@ -24,5 +26,4 @@ class Graph{
         float get_edge(int u, int v);
         float get_edge(string u, string v); //Overloaded
         void print_matrix();
-
 };

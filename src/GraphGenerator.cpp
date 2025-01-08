@@ -58,6 +58,6 @@ pair<int,int> Graph::get_indices_from_keys(string u, string v){
 
 void Graph::create_hash_map(){
     for(int i=0; i<this->keys.size(); i++){
-        keyToIndexMap[keys[i]] = i;
+        this->keyToIndexMap[keys[i]] = i;
     }
 }

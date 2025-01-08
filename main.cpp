@@ -29,24 +29,24 @@ Graph getFilledGraph(){
     vector<float> chfEdge = currencies.getChfEdge();
 
     for(int i = 0; i<usdKey.size();i++){
-        graph.add_edge_using_key("USD", usdKey[i], -log(usdEdge[i]));
-        graph.add_edge_using_key(usdKey[i], "USD", -log(1/usdEdge[i]));
+        graph.add_edge("USD", usdKey[i], -log(usdEdge[i]));
+        graph.add_edge(usdKey[i], "USD", -log(1/usdEdge[i]));
     }
     for(int i = 0; i<eurKey.size();i++){
-        graph.add_edge_using_key("EUR", eurKey[i], -log(eurEdge[i]));
-        graph.add_edge_using_key(eurKey[i], "EUR", -log(1/eurEdge[i]));
+        graph.add_edge("EUR", eurKey[i], -log(eurEdge[i]));
+        graph.add_edge(eurKey[i], "EUR", -log(1/eurEdge[i]));
     }
     for(int i = 0; i<jpyKey.size();i++){
-        graph.add_edge_using_key("JPY", jpyKey[i], -log(jpyEdge[i]));
-        graph.add_edge_using_key(jpyKey[i], "JPY", -log(1/jpyEdge[i]));
+        graph.add_edge("JPY", jpyKey[i], -log(jpyEdge[i]));
+        graph.add_edge(jpyKey[i], "JPY", -log(1/jpyEdge[i]));
     }
     for(int i = 0; i<gbpKey.size();i++){
-        graph.add_edge_using_key("GBP", gbpKey[i], -log(gbpEdge[i]));
-        graph.add_edge_using_key(gbpKey[i], "GBP", -log(1/gbpEdge[i]));
+        graph.add_edge("GBP", gbpKey[i], -log(gbpEdge[i]));
+        graph.add_edge(gbpKey[i], "GBP", -log(1/gbpEdge[i]));
     }
     for(int i = 0; i<chfKey.size();i++){
-        graph.add_edge_using_key("CHF", chfKey[i], -log(chfEdge[i]));
-        graph.add_edge_using_key(chfKey[i], "CHF", -log(1/chfEdge[i]));
+        graph.add_edge("CHF", chfKey[i], -log(chfEdge[i]));
+        graph.add_edge(chfKey[i], "CHF", -log(1/chfEdge[i]));
     }
 
     return graph;

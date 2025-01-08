@@ -52,7 +52,7 @@ Graph getFilledGraph(){
     return graph;
 }
 
-int main() {
+int main(){
     Graph graph = getFilledGraph();
     graph.print_matrix();
 }

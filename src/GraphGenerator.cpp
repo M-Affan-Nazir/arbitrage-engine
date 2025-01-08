@@ -52,3 +52,7 @@ void Graph::create_hash_map(){
         this->keyToIndexMap[keys[i]] = i;
     }
 }
+
+int Graph::get_index_from_key(string u){
+    return this->keyToIndexMap[u];
+}

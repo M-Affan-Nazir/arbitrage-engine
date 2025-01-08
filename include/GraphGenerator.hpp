@@ -12,6 +12,7 @@ class Graph{
         unordered_map<string, int> keyToIndexMap;
         pair<int,int> get_indices_from_keys(string u, string v);
         void create_hash_map();
+        int get_index_from_key(string u);
 
     public:
         Graph(int n); //Constructor

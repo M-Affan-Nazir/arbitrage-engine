@@ -10,6 +10,7 @@ Graph::Graph(int n){
 
 void Graph::set_key(vector<string> keys){
     this->keys = keys;
+    this->create_hash_map();
 }
 
 void Graph::add_edge_using_index(int u, int v, float weight){
@@ -53,4 +54,10 @@ pair<int,int> Graph::get_indices_from_keys(string u, string v){
         }
     }
     return make_pair(index_u, index_v);
+}
+
+void Graph::create_hash_map(){
+    for(int i=0; i<this->keys.size(); i++){
+        keyToIndexMap[keys[i]] = i;
+    }
 }

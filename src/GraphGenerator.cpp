@@ -13,20 +13,20 @@ void Graph::set_key(vector<string> keys){
     this->create_hash_map();
 }
 
-void Graph::add_edge_using_index(int u, int v, float weight){
+void Graph::add_edge(int u, int v, float weight){
     this->matrix[u][v] = weight;
 }
 
-void Graph::add_edge_using_key(string u, string v, float weight){
+void Graph::add_edge(string u, string v, float weight){
     auto indices = get_indices_from_keys(u,v);
     this->matrix[indices.first][indices.second] = weight;
 }
 
-float Graph::get_edge_using_index(int u, int v){
+float Graph::get_edge(int u, int v){
     return this->matrix[u][v];
 }
 
-float Graph::get_edge_using_key(string u, string v){
+float Graph::get_edge(string u, string v){
     auto indices = get_indices_from_keys(u,v);
     return this->matrix[indices.first][indices.second];
 }

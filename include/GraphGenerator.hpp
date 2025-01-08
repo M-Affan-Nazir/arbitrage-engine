@@ -17,10 +17,10 @@ class Graph{
     public:
         Graph(int n); //Constructor
         void set_key(vector<string> keys);
-        void add_edge_using_index(int u, int v, float weight);
-        void add_edge_using_key(string u, string v, float weight);
-        float get_edge_using_index(int u, int v);
-        float get_edge_using_key(string u, string v);
+        void add_edge(int u, int v, float weight);
+        void add_edge(string u, string v, float weight); //Overloaded
+        float get_edge(int u, int v);
+        float get_edge(string u, string v); //Overloaded
         void print_matrix();
 
 };

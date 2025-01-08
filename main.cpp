@@ -30,18 +30,23 @@ Graph getFilledGraph(){
 
     for(int i = 0; i<usdKey.size();i++){
         graph.add_edge_using_key("USD", usdKey[i], -log(usdEdge[i]));
+        graph.add_edge_using_key(usdKey[i], "USD", -log(1/usdEdge[i]));
     }
     for(int i = 0; i<eurKey.size();i++){
         graph.add_edge_using_key("EUR", eurKey[i], -log(eurEdge[i]));
+        graph.add_edge_using_key(eurKey[i], "EUR", -log(1/eurEdge[i]));
     }
     for(int i = 0; i<jpyKey.size();i++){
         graph.add_edge_using_key("JPY", jpyKey[i], -log(jpyEdge[i]));
+        graph.add_edge_using_key(jpyKey[i], "JPY", -log(1/jpyEdge[i]));
     }
     for(int i = 0; i<gbpKey.size();i++){
         graph.add_edge_using_key("GBP", gbpKey[i], -log(gbpEdge[i]));
+        graph.add_edge_using_key(gbpKey[i], "GBP", -log(1/gbpEdge[i]));
     }
     for(int i = 0; i<chfKey.size();i++){
         graph.add_edge_using_key("CHF", chfKey[i], -log(chfEdge[i]));
+        graph.add_edge_using_key(chfKey[i], "CHF", -log(1/chfEdge[i]));
     }
 
     return graph;

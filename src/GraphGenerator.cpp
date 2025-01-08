@@ -17,17 +17,8 @@ void Graph::add_edge_using_index(int u, int v, float weight){
 }
 
 void Graph::add_edge_using_key(string u, string v, float weight){
-    int index_u, index_v;
-    for(int i=0;i<this->keys.size();i++){
-        
-        if(this->keys[i] == u){
-            index_u = i;
-        }
-        if(this->keys[i] == v){
-            index_v = i;
-        }
-    }
-    this->matrix[index_u][index_v] = weight;
+    auto indices = get_indices_from_keys(u,v);
+    this->matrix[indices.first][indices.second] = weight;
 }
 
 float Graph::get_edge_using_index(int u, int v){
@@ -35,16 +26,8 @@ float Graph::get_edge_using_index(int u, int v){
 }
 
 float Graph::get_edge_using_key(string u, string v){
-    int index_u, index_v;
-    for(int i=0;i<this->keys.size();i++){
-        if(this->keys[i] == u){
-            index_u = i;
-        }
-        if(this->keys[i] == v){
-            index_v = i;
-        }
-    }
-    return this->matrix[index_u][index_v];
+    auto indices = get_indices_from_keys(u,v);
+    return this->matrix[indices.first][indices.second];
 }
 
 
@@ -57,4 +40,17 @@ void Graph::print_matrix(){
         cout << endl;
     }
     cout << "---------------" << endl;
+}
+
+pair<int,int> Graph::get_indices_from_keys(string u, string v){
+    int index_u, index_v;
+    for(int i=0;i<this->keys.size();i++){
+        if(this->keys[i] == u){
+            index_u = i;
+        }
+        if(this->keys[i] == v){
+            index_v = i;
+        }
+    }
+    return make_pair(index_u, index_v);
 }

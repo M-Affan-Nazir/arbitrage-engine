@@ -14,6 +14,7 @@ class Graph{
         pair<int,int> get_indices_from_keys(string u, string v);
         void create_hash_maps();
         int get_index_from_key(string u);
+        string get_key_from_index(int u);
 
     public:
         Graph(int n); //Constructor

@@ -54,5 +54,5 @@ Graph getFilledGraph(){
 
 int main(){
     Graph graph = getFilledGraph();
-    graph.print_matrix();
+    graph.dijkstra("GBP","USD");
 }

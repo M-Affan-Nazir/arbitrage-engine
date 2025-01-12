@@ -21,9 +21,14 @@ class MinPQ{
             }  // allowing struct to be called as a function, overloading '()' operation. compareDistance comp(a,b) -> boolean
         };
         priority_queue<Node, vector<Node>, compareDistance> minPQ;
+        vector<Node> visitedNodes;
+
     public:
         MinPQ();
         void addNode(int index, int predIndex, float distance);
         Node extractMinAndPop();
-        void adjustNode(int index, float newDistance);
+        Node getNodeByIndex(int index);
+        void adjustNode(int index, float newDistance, int predIndex);
+        bool empty();
+        vector<int> getPath(int u, int v);
 };

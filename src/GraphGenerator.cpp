@@ -3,6 +3,8 @@
 using namespace std;
 #include <GraphGenerator.hpp>
 #include <iostream>
+#include <queue>
+#include <functional>
 
 Graph::Graph(int n){
     this->matrix = vector<vector<float>> (n, vector<float>(n, -1)); //each edge value is -1
@@ -82,3 +84,4 @@ vector<string> Graph::get_neighbours(string u){
     }
     return neighbours;
 }
+

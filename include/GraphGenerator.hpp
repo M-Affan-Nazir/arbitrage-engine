@@ -2,6 +2,8 @@
 #include <string>
 #include <utility>
 #include <unordered_map>
+#include <queue>
+#include <functional>
 using namespace std;
 
 class Graph{
@@ -17,6 +19,7 @@ class Graph{
         string get_key_from_index(int u);
         vector<string> get_neighbours(int u);
         vector<string> get_neighbours(string u);
+        priority_queue<int, vector<int>, greater<int>> minPQ;
 
     public:
         Graph(int n); //Constructor

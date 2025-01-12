@@ -7,6 +7,7 @@ using namespace std;
 #include <functional>
 #include <minPriorityQueue.hpp>
 #include <limits>
+#include <cmath>
 
 Graph::Graph(int n){
     this->matrix = vector<vector<float>> (n, vector<float>(n, -1)); //each edge value is -1
@@ -114,10 +115,30 @@ void Graph::dijkstra(string u, string v){
         }
     };
 
+    //Displaying Pathway:
     vector<int> path = minPQ.getPath(this->get_index_from_key(u), this->get_index_from_key(v));
+    cout << "\n---------------------------------------" << endl;
+    cout << "BEST EXCHANGE RATE PATH" << endl;
+    cout << "\t- Pathway: ";
     for(int i = 0; i < path.size()-1; i++){
         cout << this->get_key_from_index(path[i]) << " --> ";
     }
     cout << this->get_key_from_index(path[path.size()-1]);
     cout << endl;
+
+    //Message:
+    float orignalConversion = this->get_edge(u, v);
+    cout << "\t- ORIGNAL CONVERSION RATE: " << "1 " + u + " = " << exp(-orignalConversion) << " " + v << endl;
+
+    int index = 0;
+    float pathwayConversionRate = 1;
+    while(index < path.size()-1){
+        float rate = this->get_edge(path[index],path[index+1]);
+        pathwayConversionRate = pathwayConversionRate * exp(-rate);
+        index = index + 1;
+    }
+    //pathwayConversionRate > orignalConversion; due to -log(rate) being used as Graph's edge weight. You get more goal currency!!
+    cout << "\t- BEST EXCHANGE RATE: " << "1 " + u + " = " << pathwayConversionRate << " " + v << endl;
+    cout << "\t- GAIN PER " + u + ": "  <<  pathwayConversionRate - exp(-orignalConversion) << " " + v + " (" << ((pathwayConversionRate - exp(-orignalConversion))/exp(-orignalConversion))*100 << "%)" << endl;
+    cout << "---------------------------------------\n" << endl;
 }

@@ -142,3 +142,60 @@ void Graph::dijkstra(string u, string v){
     cout << "\t- GAIN PER " + u + ": "  <<  pathwayConversionRate - exp(-orignalConversion) << " " + v + " (" << ((pathwayConversionRate - exp(-orignalConversion))/exp(-orignalConversion))*100 << "%)" << endl;
     cout << "---------------------------------------\n" << endl;
 }
+
+void Graph::bellman_ford(string u){
+
+    //filling:
+    vector<Node> rates;
+    for(int i = 0; i<this->keys.size(); i++){
+        string key = this->keys[i];
+        if(key == u){
+            rates.push_back(Node(i,-1,0));
+        }
+        else{
+            rates.push_back(Node(i,-1,numeric_limits<float>::infinity()));
+        }
+    }
+
+    //Relax Edges:
+    for(int i = 0; i<rates.size(); i++){
+        
+        for(int μ=0; μ<rates.size();μ++){
+            for(int λ=0; λ<rates.size();λ++){
+
+                if(this->get_edge(rates[μ].index,rates[λ].index) != -1){
+                    
+                    if(rates[λ].distance > rates[μ].distance + this->get_edge(rates[μ].index,rates[λ].index)){
+                        rates[λ].distance = rates[μ].distance + this->get_edge(rates[μ].index,rates[λ].index);
+                        rates[λ].predIndex = rates[μ].index;
+                    }
+
+                }
+                
+
+            }
+        }
+
+    }
+
+    //Detect Negative Cycle:
+    for(int μ=0; μ<rates.size();μ++){
+
+        for(int λ=0; λ<rates.size();λ++){
+
+            if(this->get_edge(rates[μ].index,rates[λ].index) != -1){
+                    
+                if(rates[λ].distance > rates[μ].distance + this->get_edge(rates[μ].index,rates[λ].index)){
+                    cout << "Negative Weight Cycle Detected" << endl;
+                    return;
+                }
+
+            }
+                
+
+        }
+    }
+
+    cout << "No negative weight Cycle detected" << endl;
+
+}

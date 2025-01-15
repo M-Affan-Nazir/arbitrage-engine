@@ -54,5 +54,5 @@ Graph getFilledGraph(){
 
 int main(){
     Graph graph = getFilledGraph();
-    graph.dijkstra("USD","CHF");
+    graph.bellman_ford("USD");
 }

@@ -28,4 +28,5 @@ class Graph{
         float get_edge(string u, string v); //Overloaded
         void print_matrix();
         void dijkstra(string u, string v);
+        void bellman_ford(string u);
 };

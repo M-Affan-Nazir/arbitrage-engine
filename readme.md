@@ -3,6 +3,10 @@
 ## Ovewview
 The Dynamic Currency Arbitrage Engine is a high-performance C++ system designed to identify and exploit arbitrage opportunities in the global currency markets. By integrating real-time market data and employing advanced graph algorithms, the engine optimizes currency conversion pathways to maximize potential gains.
 
+<div style="display: flex; gap: 10px;">
+    <img src="./assets/arbitrage_graph_representation.png" alt="Image 1">
+</div>
+
 ## Features:
 
 ### API Integration & Data Parsing:

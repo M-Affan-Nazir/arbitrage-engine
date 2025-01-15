@@ -2,6 +2,8 @@
 #include <GraphGenerator.hpp>
 #include <cmath>
 #include <stdio.h>
+#include <iostream>
+
 using namespace std;
 
 Graph getFilledGraph(){
@@ -52,7 +54,93 @@ Graph getFilledGraph(){
     return graph;
 }
 
+void currencyPathway(Graph graph){
+        #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
+    if(graph.check_negative_weight_cycle("USD") ==  true){
+        cout << "\t * MESSAGE: Negative weight cycles exist." << endl;
+        cout << "\t * MESSAGE: Current Most Shortest Path Not Avilable\n" << endl;
+    }
+    else{
+        cout << "Currency List: " << endl;
+        int index = 0;
+        for(int i = 0; i<graph.keys.size();i++){
+            cout << "\t- " << i+1 << ". " << graph.keys[i] << endl;
+        }
+        int key1;
+        int key2;
+        cout << "Please Enter Currency 1: ";
+        cin >> key1;
+        cout << endl;
+        cout<< "Please Enter Currency 2: ";
+        cin >> key2;
+        cout << endl;
+
+        graph.dijkstra(graph.keys[key1-1], graph.keys[key2-1]);
+    }
+    cout << "Press 0 to continue" << endl;
+    int temp;
+    cin >> temp;
+
+}
+
+void arbitrageEngine(Graph graph){
+        #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
+
+        graph.bellman_ford("USD");
+        cout << "Press 0 to continue" << endl;
+        int temp;
+        cin >> temp;
+
+}
+
 int main(){
     Graph graph = getFilledGraph();
-    graph.bellman_ford("USD");
+    bool exit = false;
+    while(exit == false){
+        int option;
+        #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
+        cout << "\n---------------------------------------\n" << endl;
+        cout << "\t ARBITRAGE ENGINE" << endl;
+        cout << "\n---------------------------------------\n" << endl;
+        cout << "SELECT OPTION:" <<  endl;
+        cout << "\t 1. Find Shortest Currency Pathway" << endl;
+        cout << "\t 2. Run Arbitrage Engine" << endl;
+        cout << "\t 3. Exit\n" << endl;
+
+        cout<< "Please Enter Option Number: ";
+        cin >> option;
+
+        if(option == 1){
+            currencyPathway(graph);
+        }
+        else if(option == 2){
+            arbitrageEngine(graph);
+        }
+        else if(option == 3){
+            #ifdef _WIN32
+                system("cls");
+            #else
+                system("clear");
+            #endif
+            exit = true;
+        }
+
+        #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
+    }
 }

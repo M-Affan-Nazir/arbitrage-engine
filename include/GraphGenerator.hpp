@@ -9,7 +9,6 @@ class Graph{
 
     private:
         vector<vector<float>> matrix;
-        vector<string> keys;
         unordered_map<string, int> keyToIndexMap;
         unordered_map<int, string> indexToKeyMap;
         pair<int,int> get_indices_from_keys(string u, string v);
@@ -20,6 +19,7 @@ class Graph{
         vector<string> get_neighbours(string u);
         
     public:
+        vector<string> keys;
         Graph(int n); //Constructor
         void set_key(vector<string> keys);
         void add_edge(int u, int v, float weight);
@@ -29,4 +29,5 @@ class Graph{
         void print_matrix();
         void dijkstra(string u, string v);
         void bellman_ford(string u);
+        bool check_negative_weight_cycle(string u);
 };

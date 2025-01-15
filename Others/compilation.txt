@@ -1,1 +1,1 @@
-g++ main.cpp src/ApiFetcher.cpp src/currencyPairs.cpp src/GraphGenerator.cpp src/minPriorityQueue.cpp -I./include -o ApiFetcher -lcurl
+g++ main.cpp src/ApiFetcher.cpp src/currencyPairs.cpp src/GraphGenerator.cpp src/minPriorityQueue.cpp -I./include -o Arbitrage_Engine -lcurl

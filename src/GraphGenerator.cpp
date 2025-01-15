@@ -117,7 +117,7 @@ void Graph::dijkstra(string u, string v){
 
     //Displaying Pathway:
     vector<int> path = minPQ.getPath(this->get_index_from_key(u), this->get_index_from_key(v));
-    cout << "\n---------------------------------------" << endl;
+    cout << "\n---------------------------------------\n" << endl;
     cout << "BEST EXCHANGE RATE PATH" << endl;
     cout << "\t- Pathway: ";
     for(int i = 0; i < path.size()-1; i++){
@@ -140,7 +140,7 @@ void Graph::dijkstra(string u, string v){
     //pathwayConversionRate > orignalConversion; due to -log(rate) being used as Graph's edge weight. You get more goal currency!!
     cout << "\t- BEST EXCHANGE RATE: " << "1 " + u + " = " << pathwayConversionRate << " " + v << endl;
     cout << "\t- GAIN PER " + u + ": "  <<  pathwayConversionRate - exp(-orignalConversion) << " " + v + " (" << ((pathwayConversionRate - exp(-orignalConversion))/exp(-orignalConversion))*100 << "%)" << endl;
-    cout << "---------------------------------------\n" << endl;
+    cout << "\n---------------------------------------\n" << endl;
 }
 
 void Graph::bellman_ford(string u){
@@ -158,7 +158,7 @@ void Graph::bellman_ford(string u){
     }
 
     //Relax Edges:
-    for(int i = 0; i<rates.size(); i++){
+    for(int i = 0; i<rates.size()-1; i++){
         
         for(int μ=0; μ<rates.size();μ++){
             for(int λ=0; λ<rates.size();λ++){
@@ -179,15 +179,16 @@ void Graph::bellman_ford(string u){
     }
 
     //Detect Negative Cycle:
+    int negativeCycleIndex = -1;
     for(int μ=0; μ<rates.size();μ++){
 
-        for(int λ=0; λ<rates.size();λ++){
+        for(int λ=0; λ<rates.size()-1;λ++){
 
             if(this->get_edge(rates[μ].index,rates[λ].index) != -1){
                     
                 if(rates[λ].distance > rates[μ].distance + this->get_edge(rates[μ].index,rates[λ].index)){
-                    cout << "Negative Weight Cycle Detected" << endl;
-                    return;
+                    negativeCycleIndex = λ;
+                    break;
                 }
 
             }
@@ -196,6 +197,43 @@ void Graph::bellman_ford(string u){
         }
     }
 
-    cout << "No negative weight Cycle detected" << endl;
+    if(negativeCycleIndex != -1){
+        
+        vector<int> negativeCycle;
+        
+        //Back Track
+        int current = negativeCycleIndex;
+        for (int i = 0; i < rates.size(); i++) {
+            current = rates[current].predIndex;
+        }
 
+        int start = current;
+        do {
+            negativeCycle.insert(negativeCycle.begin(), current);
+            current = rates[current].predIndex;
+        } while (current != start);
+
+        //Output
+        cout << "\n---------------------------------------\n" << endl;
+        cout << "NEGATIVE WEIGHT CYCLE DETECTED!" << endl;
+        cout << "PATHWAY FOR ARBITRAGE:" << endl;
+        cout << "\t- ";
+        for(int i = 0; i<negativeCycle.size()-1;i++){
+            cout << this->get_key_from_index(negativeCycle[i]) << " --> ";
+        }
+        cout << this->get_key_from_index(negativeCycle[negativeCycle.size()-1]) << " --> ";
+        cout << this->get_key_from_index(negativeCycle[0]);
+        cout << endl;
+
+        float initial_currency_unit = 1;
+        for(int i = 0; i < negativeCycle.size(); i++){
+            int from = negativeCycle[i];
+            int to = negativeCycle[(i + 1) % negativeCycle.size()];
+            float rate = this->get_edge(from, to);
+            initial_currency_unit *= exp(-rate);
+        }
+        cout << "\t- Arbitrage Gain: 1 " << this->get_key_from_index(negativeCycle[0]) << " TO " << initial_currency_unit << " " << this->get_key_from_index(negativeCycle[0]) << endl;
+        cout << "\n---------------------------------------\n" << endl;
+
+    }
 }
